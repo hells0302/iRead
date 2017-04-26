@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single"
+        android:id="@+id/main">
+
+        <item android:id="@+id/home"
+            android:icon="@drawable/ic_home_white_24dp"
+            android:title="@string/home"/>
+    </group>
+    <group android:checkableBehavior="none"
+        android:id="@+id/other">
+        <item android:id="@+id/dayOrNight"
+            android:icon="@drawable/ic_brightness_medium_white_24dp"
+            android:title="@string/dayOrNight"/>
+        <item android:id="@+id/setting"
+            android:icon="@drawable/ic_settings_white_24dp"
+            android:title="@string/setting"/>
+        <item android:id="@+id/about"
+            android:icon="@drawable/ic_info_white_24dp"
+            android:title="@string/about"/>
+    </group>
+</menu>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IRead</string>
+    <string name="home">首页</string>
+    <string name="dayOrNight">切换日夜间模式</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
