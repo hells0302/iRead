@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -57,10 +57,11 @@
             android:scrollbarFadeDuration="1"
             android:fadeScrollbars="true">
 
-            <WebView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/web_view" />
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/web_view" />
+
 
         </android.support.v4.widget.NestedScrollView>
 

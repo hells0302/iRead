@@ -19,8 +19,6 @@ public class ArticleContract {
 
        void showResult(String result);
 
-       void showResultWithoutBody(String url);
-
        void showCover(String url);
 
        void setTitle(String title);

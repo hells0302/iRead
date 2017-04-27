@@ -9,10 +9,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,6 +24,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.study.iread.R;
+import com.study.iread.util.NetWorkState;
 
 /**
  * Created by dnw on 2017/4/26.
@@ -36,10 +41,7 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
     public ArticleFragment() {
         super();
     }
-    public static ArticleFragment newInstance()
-    {
-        return new ArticleFragment();
-    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
         initViews(view);
         setHasOptionsMenu(true);
         presenter.requestData();
+        //点击回到首部
         view.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +69,8 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
                 presenter.requestData();
             }
         });
+
+
         return view;
     }
 
@@ -76,6 +81,7 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
 
     @Override
     public void initViews(View view) {
+
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLayout);
         //设置下拉刷新的按钮的颜色
         refreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -90,7 +96,11 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
         imageView = (ImageView) view.findViewById(R.id.image_view);
         scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
         toolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.toolbar_layout);
+
+        //能够和js交互
+        webView.getSettings().setJavaScriptEnabled(true);
         //缩放,设置为不能缩放可以防止页面上出现放大和缩小的图标
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setBuiltInZoomControls(false);
         //缓存
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -98,14 +108,16 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
         webView.getSettings().setDomStorageEnabled(true);
         //开启application Cache功能
         webView.getSettings().setAppCacheEnabled(false);
-
+        Log.d("33333333333333",webView.getSettings().getUserAgentString());
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {presenter.openUrl(view, url);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                presenter.openUrl(view, url);
                 return true;
             }
 
         });
+
     }
 
     @Override
@@ -136,10 +148,6 @@ public class ArticleFragment extends Fragment implements ArticleContract.View{
                 .into(imageView);
     }
 
-    @Override
-    public void showResultWithoutBody(String url) {
-
-    }
 
     @Override
     public void showResult(String result) {
